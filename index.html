@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>xtekkis.games</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: #0a0a0f;
+    min-height: 100vh;
+    color: #e8e4dc;
+  }
+
+  header {
+    padding: 40px 48px 28px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1;
+    color: #f0ece2;
+  }
+
+  h1 span { color: #e8c14a; }
+
+  .subtitle {
+    font-size: 12px;
+    color: rgba(232,228,220,0.35);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 8px;
+  }
+
+  .profile-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: rgba(232,228,220,0.45);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .profile-link:hover { color: rgba(232,228,220,0.8); }
+
+  .avatar {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: #1e1e2e;
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 600; color: #e8c14a;
+    flex-shrink: 0;
+  }
+
+  .games-grid {
+    padding: 36px 48px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+
+  .game-card {
+    background: #12121a;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 10px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s, transform 0.15s;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .game-card:hover {
+    border-color: rgba(232,193,74,0.3);
+    transform: translateY(-2px);
+  }
+
+  .game-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: #e8c14a;
+  }
+
+  .game-card.blue::before { background: #4a8fe8; }
+  .game-card.red::before { background: #e84a4a; }
+  .game-card.green::before { background: #5ecc5e; }
+
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    background: rgba(232,193,74,0.1);
+    color: #e8c14a;
+    border: 1px solid rgba(232,193,74,0.2);
+    width: fit-content;
+  }
+
+  .tag.multi {
+    background: rgba(74,143,232,0.1);
+    color: #4a8fe8;
+    border-color: rgba(74,143,232,0.2);
+  }
+
+  .tag.solo {
+    background: rgba(94,204,94,0.1);
+    color: #5ecc5e;
+    border-color: rgba(94,204,94,0.2);
+  }
+
+  .game-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #f0ece2;
+    margin-bottom: 8px;
+  }
+
+  .game-desc {
+    font-size: 13px;
+    color: rgba(232,228,220,0.45);
+    line-height: 1.65;
+    flex: 1;
+    margin-bottom: 16px;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 12px;
+  }
+
+  .lang-stack {
+    font-size: 11px;
+    color: rgba(232,228,220,0.25);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .play-link {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(232,193,74,0.6);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    transition: color 0.15s;
+  }
+
+  .play-link:hover { color: #e8c14a; }
+
+  .coming-card {
+    background: #0d0d14;
+    border: 1px dashed rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .plus-circle {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 1px dashed rgba(255,255,255,0.12);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    color: rgba(255,255,255,0.15);
+  }
+
+  .coming-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.15);
+  }
+
+  footer {
+    padding: 0 48px 40px;
+    display: flex;
+    gap: 28px;
+  }
+
+  .stat {
+    font-size: 12px;
+    color: rgba(232,228,220,0.25);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .stat b {
+    color: rgba(232,228,220,0.6);
+    font-weight: 600;
+  }
+
+  @media (max-width: 600px) {
+    header { padding: 28px 24px 20px; flex-direction: column; align-items: flex-start; gap: 16px; }
+    .games-grid { padding: 24px; }
+    footer { padding: 0 24px 32px; }
+    h1 { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>xtekkis<span>.</span>games</h1>
+    <p class="subtitle">Browser games &amp; experiments</p>
+  </div>
+  <a class="profile-link" href="https://github.com/xtekkis" target="_blank">
+    <div class="avatar">XT</div>
+    github.com/xtekkis
+  </a>
+</header>
+
+<div class="games-grid">
+
+  <a class="game-card" href="https://github.com/xtekkis/makeshift-racers" target="_blank">
+    <span class="tag multi">4-player · online</span>
+    <h2 class="game-name">Makeshift Racers</h2>
+    <p class="game-desc">Fast-paced top-down racing. Grab power-ups, fall off the edge, respawn and keep going. First player to 4000 points wins.</p>
+    <div class="card-footer">
+      <span class="lang-stack">JS · WebSockets · Colyseus</span>
+      <span class="play-link">View repo →</span>
+    </div>
+  </a>
+
+  <a class="game-card blue" href="https://github.com/xtekkis/typing-speed-test" target="_blank">
+    <span class="tag solo">single player</span>
+    <h2 class="game-name">Typing Speed Test</h2>
+    <p class="game-desc">Test your WPM with randomised word sets and difficulty scaling. Tracks personal bests using local storage.</p>
+    <div class="card-footer">
+      <span class="lang-stack">HTML · CSS · JavaScript</span>
+      <span class="play-link">Play →</span>
+    </div>
+  </a>
+
+  <div class="coming-card">
+    <div class="plus-circle">+</div>
+    <span class="coming-label">More coming soon</span>
+  </div>
+
+</div>
+
+<footer>
+  <span class="stat"><b>2</b> games</span>
+  <span class="stat"><b>1</b> in progress</span>
+  <span class="stat"><b>3</b> languages</span>
+</footer>
+
+</body>
+</html>
